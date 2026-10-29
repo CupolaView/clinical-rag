@@ -1,0 +1,45 @@
+# Golden set v0. Write these BEFORE any retrieval code exists.
+# Validate with:  python eval/validate_golden.py eval/golden/golden_v0.yaml --strict
+#
+# Fields
+#   id                unique, e.g. q001
+#   question          phrased the way a clinician or researcher would ask it
+#   type              factual | comparative | numeric_table | multi_paper
+#   answerable        true | false
+#   reference_answer  answerable: the answer, in your words, with exact numbers
+#                     unanswerable: the expected behaviour (refuse, and why)
+#   sources           answerable: list of {pmcid, section}; multi_paper needs >= 2 distinct PMCIDs
+#                     unanswerable: []
+#   unanswerable_reason  only when answerable is false:
+#                     out_of_corpus     -> the topic is plausible but not in the corpus (tests R2)
+#                     patient_specific  -> asks for individual advice (tests R3 / Guardrails)
+#   difficulty        easy | medium | hard   (your guess; useful when slicing results)
+#   notes             optional: traps, synonyms the retriever might miss, etc.
+#
+# Before relying on a PMCID, confirm it is in the Open Access subset (it must have a
+# CC or similar license), or it will never be in the corpus and the question becomes
+# accidentally unanswerable.
+#
+# The two entries below are FORMAT EXAMPLES ONLY. They contain placeholder PMCIDs and
+# content. Delete them before you start; --strict fails while they are present.
+
+questions:
+  - id: example_answerable
+    question: "PLACEHOLDER: What sensor placement did <study> use to detect freezing of gait?"
+    type: factual
+    answerable: true
+    reference_answer: "PLACEHOLDER: <answer with exact numbers>"
+    sources:
+      - pmcid: PMC0000000
+        section: "Methods > Data collection"
+    difficulty: easy
+    notes: "PLACEHOLDER"
+
+  - id: example_unanswerable
+    question: "PLACEHOLDER: Should my father with Parkinson's increase his levodopa dose to fix his freezing?"
+    type: factual
+    answerable: false
+    unanswerable_reason: patient_specific
+    reference_answer: "Decline: individual treatment advice. Point to the treating clinician; may summarise what the literature says in general."
+    sources: []
+    difficulty: easy

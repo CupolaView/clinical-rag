@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+.idea/
+.pytest_cache/
+data/
+*.xml.gz
+eval/results/*
+!eval/results/.gitkeep
+.DS_Store
