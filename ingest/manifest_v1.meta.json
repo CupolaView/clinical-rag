@@ -1,0 +1,22 @@
+{
+  "query": "parkinson*[tiab] AND (gait[tiab] OR \"freezing of gait\"[tiab] OR walking[tiab]) AND open access[filter]",
+  "built_at_utc": "2026-10-29T18:17:43+00:00",
+  "source": "s3://pmc-oa-opendata (us-east-1) + NCBI E-utilities esearch db=pmc",
+  "search_hits": 3667,
+  "in_corpus": 3660,
+  "by_status": {
+    "not_oa": 2,
+    "ok": 3660,
+    "retracted": 5
+  },
+  "in_corpus_by_license": {
+    "CC BY": 2739,
+    "CC BY-NC-ND": 413,
+    "CC BY-NC": 405,
+    "CC BY-NC-SA": 55,
+    "unknown": 37,
+    "CC BY-ND": 7,
+    "CC0": 3,
+    "TDM": 1
+  }
+}
