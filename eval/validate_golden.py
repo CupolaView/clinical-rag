@@ -32,7 +32,7 @@ REQUIRED_REASONS = UNANSWERABLE_REASONS  # at least one of each
 
 
 def load(path: Path) -> list[dict]:
-    data = yaml.safe_load(path.read_text()) or {}
+    data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     questions = data.get("questions") or []
     if not isinstance(questions, list):
         raise SystemExit(f"{path}: 'questions' must be a list")
@@ -106,13 +106,17 @@ def coverage_errors(questions: list[dict]) -> list[str]:
 
 
 def manifest_errors(questions: list[dict], manifest: Path) -> list[str]:
-    with manifest.open(newline="") as f:
-        corpus = {row["pmcid"] for row in csv.DictReader(f)}
+    # utf-8 explicitly: Windows otherwise defaults to cp1252 and fails on titles
+    with manifest.open(newline="", encoding="utf-8") as f:
+        status = {row["pmcid"]: row.get("status", "ok") for row in csv.DictReader(f)}
     errs = []
     for q in questions:
         for s in q.get("sources") or []:
-            if s.get("pmcid") not in corpus:
-                errs.append(f"{q['id']}: {s.get('pmcid')} is not in {manifest.name}")
+            pmcid = s.get("pmcid")
+            if pmcid not in status:
+                errs.append(f"{q['id']}: {pmcid} is not in {manifest.name}")
+            elif status[pmcid] != "ok":
+                errs.append(f"{q['id']}: {pmcid} is in {manifest.name} but excluded (status={status[pmcid]})")
     return errs
 
 
