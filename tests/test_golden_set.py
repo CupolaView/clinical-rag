@@ -31,3 +31,17 @@ def test_manifest_check_reads_utf8_and_respects_status(tmp_path):
     assert len(errs) == 2
     assert "PMC2" in errs[0] and "retracted" in errs[0]
     assert "PMC3" in errs[1] and "not in" in errs[1]
+
+
+def test_list_style_sources_are_reported_not_crash(tmp_path):
+    golden = tmp_path / "g.yaml"
+    golden.write_text(
+        "questions:\n"
+        "  - id: m\n    question: q\n    type: multi_paper\n    answerable: true\n    reference_answer: r\n"
+        "    sources:\n      - pmcid: [PMC1, PMC2]\n        section: [A, B]\n",
+        encoding="utf-8",
+    )
+    manifest = tmp_path / "m.csv"
+    manifest.write_text("pmcid,status\nPMC1,ok\nPMC2,ok\n", encoding="utf-8")
+    errs = validate(golden, manifest=manifest)
+    assert any("one '- pmcid" in e for e in errs)

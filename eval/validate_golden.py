@@ -68,13 +68,19 @@ def check_question(q: dict) -> list[str]:
     if q["answerable"]:
         if not sources:
             err("answerable question needs at least one source")
+        good_pmcids = set()
         for s in sources:
-            pmcid = str((s or {}).get("pmcid", ""))
+            if not isinstance(s, dict) or isinstance(s.get("pmcid"), list) or isinstance(s.get("section"), list):
+                err("sources: write one '- pmcid: ... / section: ...' entry per paper, not lists inside one entry")
+                continue
+            pmcid = str(s.get("pmcid", ""))
             if not PMCID_RE.match(pmcid):
                 err(f"bad pmcid '{pmcid}' (expected PMC followed by digits)")
-            if not str((s or {}).get("section", "")).strip():
+            else:
+                good_pmcids.add(pmcid)
+            if not str(s.get("section", "")).strip():
                 err(f"source {pmcid} missing section")
-        if q["type"] == "multi_paper" and len({s.get("pmcid") for s in sources}) < 2:
+        if q["type"] == "multi_paper" and len(good_pmcids) < 2:
             err("multi_paper needs sources from at least 2 distinct PMCIDs")
         if "unanswerable_reason" in q:
             err("unanswerable_reason set on an answerable question")
@@ -112,7 +118,9 @@ def manifest_errors(questions: list[dict], manifest: Path) -> list[str]:
     errs = []
     for q in questions:
         for s in q.get("sources") or []:
-            pmcid = s.get("pmcid")
+            pmcid = s.get("pmcid") if isinstance(s, dict) else None
+            if not isinstance(pmcid, str):
+                continue  # malformed entry; already reported by check_question
             if pmcid not in status:
                 errs.append(f"{q['id']}: {pmcid} is not in {manifest.name}")
             elif status[pmcid] != "ok":
@@ -125,7 +133,7 @@ def summarize(questions: list[dict]) -> str:
     unans = [q for q in questions if q.get("answerable") is False]
     by_type = Counter(q.get("type") for q in ans)
     by_reason = Counter(q.get("unanswerable_reason") for q in unans)
-    pmcids = {s.get("pmcid") for q in ans for s in (q.get("sources") or [])}
+    pmcids = {s.get("pmcid") for q in ans for s in (q.get("sources") or []) if isinstance(s, dict) and isinstance(s.get("pmcid"), str)}
     lines = [
         f"{len(questions)} questions: {len(ans)} answerable, {len(unans)} unanswerable",
         "  answerable by type: " + ", ".join(f"{t}={by_type[t]}" for t in sorted(TYPES)),
