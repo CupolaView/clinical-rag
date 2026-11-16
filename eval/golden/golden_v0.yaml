@@ -28,13 +28,13 @@ questions:
     question: "Explain the affect of using laser cues in people with Parkinson’s disease who are subject to Freezing of Gait episodes in terms of gait characteristics? And what are the reasonable explanation for these effects mentioned in literature?"
     type: factual
     answerable: true
-    reference_answer: "Laser device was not effective at improving characteristics of gait and further increased gait variability.The benefits which was gained from using ground lines disappeared with the use of laser cues even though the laser cues were provided optic flow with similar direction and speed information as normally obtained from environment."
+    reference_answer: "Laser device was not effective at improving characteristics of gait and further increased gait variability.The benefits which was gained from using ground lines disappeared with the use of laser cues even though the laser cues provided optic flow with similar direction and speed information as normally obtained from environment.The use of laser device may require more attentional resources than what people with FOG have at their disposal which would negatively influence the gait characteristics."
     sources:
       - pmcid: PMC2957296
         section: "4. Discussion"
     difficulty: medium
   - id: factual_answerable_02
-    question: "Give list of few features which can be extracted from IMU data and will be useful for FOG detection or analysis in people with Parkinson’s disease. Also mention, what do each of these features are trying to quantify in terms of gait characteristics."
+    question: "Name the features which can be extracted from IMU data and will be useful for FOG detection or analysis in people with Parkinson’s disease. Also mention, what do each of these features are trying to quantify in terms of gait characteristics."
     type: factual
     answerable: true
     reference_answer: "Some of the features which can be used to detect or analyze FOG (being sensitive to FOG) along with their respective gait characteristics are turning degrees which would quantify turns; left-right correlation and left-right difference in SD quantifying gait symmetry; left right average SD and lower back SD quantifying gait amplitude; power in the locomotor band, power in the freezing band and freezing index quantifying frequency content."
@@ -43,14 +43,14 @@ questions:
         section: "Materials and Methods → Data Processing (Table 3)"
     difficulty: easy
   - id: factual_answerable_03
-    question: "What are different ways in which we can rate Freezing of Gait from walking data?"
+    question: "What are the ways in which we can rate Freezing of Gait from walking data?"
     type: factual
     answerable: true
     reference_answer: |
-      Few ways in which we can rate Freezing of Gait from walking data are as follows:
-      1. Methods which capture impaired gait patterns from lower back motion.
-      2. Methods which describe gait characteristics as topological non-linear dynamic system.
-      3. Methods which explore combinations of sensor locations, axes, window lengths and features to find the best settings which capture FOG characteristics.
+      The ways in which we can rate Freezing of Gait from walking data are as follows:
+      1. Using methods which capture impaired gait patterns from lower back motion.
+      2. Using methods which describe gait characteristics as topological non-linear dynamic system.
+      3. Using methods which explore combinations of sensor locations, axes, window lengths and features to find the best settings which capture FOG characteristics.
     sources:
       - pmcid: PMC9882551
         section: "Introduction"
@@ -60,7 +60,7 @@ questions:
     question: "Define objective assessment of Freezing of Gait (using accelerometer data) and compare it with clinical assessment of Freezing of gait in people with Parkinson’s disease"
     type: comparative
     answerable: true
-    reference_answer: "For the objective assessment of FOG (Freezing of Gait) using leg acceleration, locomotor band and freeze band are defined. Locomotor band is described as power spectrum of vertical leg acceleration during walking which has vast majority of power occurring at frequencies below 3 Hz. 0-3Hz is defined as locomotor band, is characterized by high frequency trembling of lower limb which is found to occur mainly in 3 to 8 Hz band. This region is defined as freeze band. For a particular period of leg acceleration, if the ratio of freeze to locomotor band power ratio is higher than a threshold then that period is identified as a FOG event. In contrast to this, for the clinical assessment of Freezing of Gait, clinicians expert in FOG use their best judgment to identify FOG episodes from video."
+    reference_answer: "For the objective assessment of FOG (Freezing of Gait) using leg acceleration, locomotor band and freeze band are defined. Locomotor band is described as power spectrum of vertical leg acceleration during walking which has vast majority of power occurring at frequencies below 3 Hz. 0-3Hz is defined as locomotor band. FOG is characterized by high frequency trembling of lower limb which is found to occur mainly in 3 to 8 Hz band. This region is defined as freeze band. For a particular period of leg acceleration, if the ratio of freeze to locomotor band power ratio is higher than a threshold then that period is identified as a FOG event. In contrast to this, for the clinical assessment of Freezing of Gait, clinicians expert in FOG use their best judgment to identify FOG episodes from video."
     sources:
       - pmcid: PMC3598888
         section: "Methods → Objective assessment of FOG"
@@ -89,7 +89,7 @@ questions:
     difficulty: medium
 
   - id: table_01
-    question: "Give suggestions on 3 different wearable cueing technologies which can be used by people with Parkinson's’ disease to address Freezing of Gait. Mention few technologies with on-demand and few with continuous cueing modes. Also mention the type of cueing trigger and cueing stimuli used by these technologies. "
+    question: "List wearable cueing technologies using headphones (with or without bluetooth) or a shoe attachement which can be used by people with Parkinson's’ disease to address Freezing of Gait. Mention if the technologies use on-demand or continuous cueing modes. Also mention the type of cueing trigger and cueing stimuli used by these technologies. "
     type: numeric_table
     answerable: true
     reference_answer: |
@@ -151,14 +151,14 @@ questions:
     difficulty: hard
 
   - id: multi_paper_02
-    question: "Based on the available literature on using wearable sensors for detecting or identifying or predicting Freezing of Gait in Parkinson’s disease, do a comparative analysis on performance of all such methods (Use 3 papers from the available literature). Note that prediction of Freezing of Gait could also be seen as detecting pre-FOG characteristics in wearable sensor data."
+    question: "Based on the available literature on using wearable sensors for detecting or identifying or predicting Freezing of Gait in Parkinson’s disease, do a comparative analysis on performance of all such methods using either plantar pressure data or inertial sensors. Note that prediction of Freezing of Gait could also be seen as detecting pre-FOG characteristics in wearable sensor data."
     type: multi_paper
     answerable: true
     reference_answer: |
       Three works in the available literature which uses some form of wearable sensor, either for detecting or predicting Freezing of Gait (FOG) chosen along with a summary of their performance are as follows:
       1. Prediction of freezing of gait using Plantar pressure data: Of all the models built in the work, the model which predicted freezing of Gait using bilateral plantar pressure data worked the best. It achieved 77.3% sensitivity, 82.9% specificity and identified 94.2% FOG episodes while giving 2.4 false positive per walking trial.
       2. Identification of motor patterns preceding freezing of gait using inertial sensors: In this work a linear discriminant analysis classifier was built using three best features to classify sensor data into gait and pre-FOG. The classifier achieved a mean sensitivity of 83% and mean specificity of 67% in a leave-one-subject-out procedure.
-      3. Identification of freezing of gait from lower-body segmental accelerometry: In this work, it was found that using a small window (2.5 to 5 s), all sensor-combination showed sensitivity above 70%. It was seen that above a threshold of 3s, sensitivity tended to drop off as window size increased to 7.5 and 10s. The most specific sensor combination was using all the seven IMUs which achieved a specificity above 80% or windows 7.5 and 10s and using threshold greater than 3. Using single sensor also showed good results, for e.g. using single lumbar sensor achieved sensitivity and specificity in range of 70-80%.
+      3. Identification of freezing of gait from lower-body segmental accelerometry: In this work, it was found that using a small window (2.5 to 5 s), all sensor-combination showed sensitivity above 70%. It was seen that above a threshold of 3s, sensitivity tended to drop off as window size increased to 7.5 and 10s. The most specific sensor combination was using all the seven IMUs which achieved a specificity above 80% or windows 7.5 and 10s and using threshold greater than 3. Using single sensor also showed good results, for e.g. using single lumbar sensor achieved sensitivity of 86.8% and specificity of 82.4%.
     sources:
       - pmcid: PMC9101469
         section: "Discussion"
@@ -169,11 +169,11 @@ questions:
     difficulty: hard
 
   - id: multi_paper_03
-    question: "From the literature focused on accelerometers or inertial sensors in detecting or predicting freezing of gait in Parkinson’s disease, mention how many such sensors were used on a participant and where they were placed on body."
+    question: "With respect to using accelerometers or inertial sensors in detecting or predicting freezing of gait in Parkinson’s disease, mention how many such sensors can be used on a participant and where can they be placed on body."
     type: multi_paper
     answerable: true
     reference_answer: |
-      Following two works have used accelerometers or interial sensors for detecting or predicting freezing of Gait in Parkinson’s disease:
+      Following two works have used accelerometers or inertial sensors for detecting or predicting freezing of Gait in Parkinson’s disease, these can be used as a goof reference to choose number of sensors and their body placement locations:
       1. Autonomous identification of freezing of gait in Parkinson's disease from lower-body segmental accelerometry - used 7 IMU units on lumbar back, lateral side of each thigh and shank, and superior side of each mid-foot. For each IMU, only longitudinal acceleration was used in the study.
       2. Identification of Characteristic Motor Patterns Preceding Freezing of Gait in Parkinson’s Disease using wearable sensors - used a total of 3 inertial sensors - two positioned on shins right above the ankles and one position on the lower back. All the sensors were sampled at 128 Hz.
     sources:
