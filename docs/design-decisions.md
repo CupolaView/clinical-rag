@@ -30,8 +30,11 @@ Clinicians and researchers working on Parkinson's gait problems have to read acr
   - Fallback if gait-rehabilitation coverage turns out thin: add `OR cueing[tiab] OR treadmill[tiab] OR "physical therapy"[tiab] OR physiotherapy[tiab] OR rehabilitation[tiab]` inside the second group (4,641 articles).
   - The count drifts as PMC adds papers, so the manifest is frozen once, not re-queried.
 - **Pre-check of all 3,667 hits against the bucket (Oct 29, 2026):** every hit has a folder in `s3://pmc-oa-opendata`, and every one has JATS XML. 74 have more than one version, and `build_manifest.py` takes the latest. 5 are flagged retracted and 2 are flagged not open access; these are kept in the manifest with a `status` column for audit but excluded from the corpus. **Expected corpus: 3,660 articles.**
-- **Licenses across all hits:** CC BY 2,744 · CC BY-NC 405 · CC BY-NC-ND 413 · CC BY-NC-SA 55 · CC BY-ND 7 · CC0 3 · TDM 3 · not recorded 37. About 24% are non-commercial. **[decide]** keep them (a non-commercial portfolio demo) or filter to CC BY/CC0 (about 2,750 articles, still in range).
-- **License:** store each article's license in the manifest and show it in the UI. **[decide]** include non-commercial (CC BY-NC) articles. They are fine for a public non-commercial portfolio demo, but excluding them shrinks the corpus.
+- **Licenses across all hits:** CC BY 2,744 · CC BY-NC 405 · CC BY-NC-ND 413 · CC BY-NC-SA 55 · CC BY-ND 7 · CC0 3 · TDM 3 · not recorded 37. About 24% are non-commercial.
+- **License (decided Nov 17, 2026):** keep every open-access article, including non-commercial (CC BY-NC, -NC-ND, -NC-SA) and no-derivatives licenses, so the corpus stays at 3,660 articles. This keeps golden-set sources such as PMC9882551 (CC BY-NC-ND). Consequences:
+  - The project stays non-commercial: a portfolio demo, with no paid use.
+  - Every answer cites its article, and the UI shows each article's license with a link to it on PMC.
+  - Full text is not redistributed: downloaded XML stays in S3 and in `data/` (git-ignored), never in the public repo.
 - **Versioning:** the manifest and processed chunks are versioned (DVC or S3 prefixes, as in Project 1). The corpus is frozen for the whole eval period so metric changes reflect pipeline changes, not data changes.
 
 **Non-goals:** chat memory or multi-turn context; agents or tool use (Project 4); fine-tuning (Project 3); real-time corpus updates; non-English papers; figures and images (captions are indexed, pixels are not).
