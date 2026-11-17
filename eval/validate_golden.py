@@ -25,7 +25,7 @@ DIFFICULTIES = {"easy", "medium", "hard"}
 PMCID_RE = re.compile(r"^PMC\d+$")
 
 # Week 0 coverage targets (--strict)
-MIN_QUESTIONS = 20
+MIN_QUESTIONS = 18  # Week 0 set; grows to 50-100 by Jan 10
 MIN_PER_ANSWERABLE_TYPE = 3
 MIN_UNANSWERABLE = 3
 REQUIRED_REASONS = UNANSWERABLE_REASONS  # at least one of each

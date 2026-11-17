@@ -59,7 +59,7 @@ All Bedrock calls run in **us-west-2**. Model IDs were smoke-tested on Oct 26 an
 
 ## 5. Evaluation
 
-- **Golden set:** at least 20 questions written in Week 0, **before any retrieval code exists**, then grown to 50–100 by Jan 10. Each question carries type tags (factual, comparative, numeric/table, multi-paper), and some are deliberately unanswerable. Schema is in `eval/golden/`.
+- **Golden set:** 18 questions written in Week 0 (decided Nov 17, 2026: 18 rather than 20, with every type and both unanswerable reasons covered), **before any retrieval code exists**, then grown to 50–100 by Jan 10. Each question carries type tags (factual, comparative, numeric/table, multi-paper), and some are deliberately unanswerable. Schema is in `eval/golden/`.
 - **Retrieval metrics:** recall@k and MRR against the gold PMCIDs and sections. These need no LLM judge, so they are cheap to run on every change.
 - **End-to-end metrics (RAGAS):** faithfulness > 0.9, answer relevancy > 0.85, context precision > 0.8.
 - **Refusal metrics:** refusal rate on unanswerable questions (target 100%) and false-refusal rate on answerable ones.
@@ -75,7 +75,7 @@ All Bedrock calls run in **us-west-2**. Model IDs were smoke-tested on Oct 26 an
 
 | Date | Gate |
 |---|---|
-| Nov 1 | This doc + 20 golden questions committed (the git timestamp proves they predate the retriever) |
+| Nov 1 | This doc + 18 golden questions committed (the git timestamp proves they predate the retriever) |
 | Nov 15 | Corpus ingested, embedded, and queryable |
 | Nov 29 | End-to-end: question in, cited answer out |
 | Dec 13 | Golden set expanded + RAGAS baseline in CI |

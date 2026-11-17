@@ -9,3 +9,4 @@ data/
 eval/results/*
 !eval/results/.gitkeep
 .DS_Store
+sample_papers
