@@ -146,7 +146,7 @@ def write_outputs(rows: list[dict], out: Path, query: str) -> dict:
     rows = sorted(rows, key=lambda r: int(r["pmcid"][3:]))
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=FIELDS)
+        w = csv.DictWriter(f, fieldnames=FIELDS, lineterminator="\n")  # LF everywhere, so git diffs stay small
         w.writeheader()
         w.writerows(rows)
     meta = {

@@ -100,3 +100,13 @@ def test_refresh_replaces_only_changed_rows_and_reads_failures(tmp_path):
     assert by["PMC2"]["version"] == ("2", "3") and by["PMC2"]["status"] == ("ok", "retracted")
     assert "not in manifest" in by["PMC404"]
     assert rows[2]["pmcid"] == "PMC9" and rows[0]["xml_md5"] == "fff111"
+
+
+def test_refresh_keeps_metadata_when_article_disappears():
+    from ingest.refresh_manifest import refresh
+
+    rows = [{f: "" for f in bm.FIELDS} | {"pmcid": "PMC7", "title": "Kept title", "version": "2", "status": "ok"}]
+    changes = refresh(rows, ["PMC7"], FakeS3({}))
+    assert rows[0]["title"] == "Kept title" and rows[0]["version"] == "2"
+    assert rows[0]["status"] == bm.MISSING
+    assert changes[0]["change"] == {"status": ("ok", bm.MISSING)}
