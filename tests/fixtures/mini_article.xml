@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic JATS article for tests. All text is invented. -->
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article">
+  <front>
+    <article-meta>
+      <article-id pub-id-type="pmc">PMC0000001</article-id>
+      <title-group><article-title>Synthetic Study of <italic>Gait</italic> Freezing</article-title></title-group>
+      <abstract>
+        <sec><title>Background</title><p>Freezing of gait is studied here.</p></sec>
+        <sec><title>Results</title><p>Sensitivity was 80%.</p></sec>
+      </abstract>
+      <abstract abstract-type="graphical"><p>Graphical abstract text that should be skipped.</p></abstract>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="s1"><label>1.</label><title>Introduction</title>
+      <p>Intro paragraph citing prior work <xref ref-type="bibr" rid="r1">[1]</xref>.</p>
+    </sec>
+    <sec id="s2"><title>Materials and Methods</title>
+      <sec id="s2a"><title>Data Processing</title>
+        <p>The freeze index is <inline-formula><mml:math><mml:mi>F</mml:mi></mml:math></inline-formula> computed per window (see <xref ref-type="table" rid="T1">Table 1</xref>).</p>
+        <p>LONGPARA</p>
+      </sec>
+      <sec id="s2b"><title>Statistical Analysis</title>
+        <p>We used paired t-tests.</p>
+        <table-wrap id="T2"><label>Table 2</label><caption><p>Inline table caption.</p></caption>
+          <table><thead><tr><th>Feature</th><th>p</th></tr></thead><tbody><tr><td>Turning</td><td>0.01</td></tr></tbody></table>
+        </table-wrap>
+      </sec>
+    </sec>
+    <sec id="s3"><label>4.</label><title>Discussion</title>
+      <sec><title>Limitations</title><p>Small sample size limited the study.</p></sec>
+      <fig id="F1"><label>Figure 1</label><caption><p>Sensor placement on the shank.</p></caption></fig>
+    </sec>
+    <sec><title>Competing interests</title><p>None declared.</p></sec>
+    <sec><title>Authors’ contributions</title><p>Everyone did everything.</p></sec>
+  </body>
+  <back>
+    <ack><p>Thanks to all.</p></ack>
+    <ref-list><ref id="r1"><mixed-citation>A reference that must not appear.</mixed-citation></ref></ref-list>
+  </back>
+  <floats-group>
+    <table-wrap id="T1"><label>Table 1</label><caption><p>Features extracted from the signals.</p></caption>
+      <table><thead><tr><th>Feature</th><th>Description</th></tr></thead>
+        <tbody><tr><td>Freeze index</td><td>Ratio of freeze to locomotor band power</td></tr></tbody></table>
+      <table-wrap-foot><fn><p>SD, standard deviation.</p></fn></table-wrap-foot>
+    </table-wrap>
+  </floats-group>
+</article>

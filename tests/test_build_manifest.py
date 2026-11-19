@@ -68,3 +68,35 @@ def test_write_outputs(tmp_path):
     assert summary["in_corpus"] == 1
     assert summary["by_status"] == {"ok": 1, "retracted": 1}
     assert json.loads(out.with_suffix(".meta.json").read_text())["query"] == "q"
+
+
+def test_refresh_replaces_only_changed_rows_and_reads_failures(tmp_path):
+    from ingest.refresh_manifest import failed_pmcids, refresh
+
+    fails = tmp_path / "f.csv"
+    fails.write_text(
+        "pmcid,error\n"
+        "PMC1,\"ValueError('MD5 mismatch: manifest a, downloaded b')\"\n"
+        "PMC2,\"NoSuchKey('The specified key does not exist.')\"\n"
+        "PMC3,\"EndpointConnectionError('timeout')\"\n",
+        encoding="utf-8",
+    )
+    assert failed_pmcids(fails) == ["PMC1", "PMC2"]  # network errors are not refreshed
+
+    s3 = FakeS3({
+        "PMC1": {1: meta("PMC1", 1, xml_url="s3://pmc-oa-opendata/PMC1.1/PMC1.1.xml?md5=fff111")},
+        "PMC2": {3: meta("PMC2", 3, is_retracted=True)},
+    })
+    old = {f: "" for f in bm.FIELDS}
+    rows = [
+        {**old, "pmcid": "PMC1", "version": "1", "xml_key": "PMC1.1/PMC1.1.xml", "xml_md5": "000111", "status": "ok",
+         "title": "T itle", "pmid": "1", "doi": "10.1/x", "citation": "J. 2023", "license_code": "CC BY"},
+        {**old, "pmcid": "PMC2", "version": "2", "xml_key": "PMC2.2/PMC2.2.xml", "status": "ok"},
+        {**old, "pmcid": "PMC9", "status": "ok"},
+    ]
+    changes = refresh(rows, ["PMC1", "PMC2", "PMC404"], s3)
+    by = {c["pmcid"]: c["change"] for c in changes}
+    assert by["PMC1"] == {"xml_md5": ("000111", "fff111")}
+    assert by["PMC2"]["version"] == ("2", "3") and by["PMC2"]["status"] == ("ok", "retracted")
+    assert "not in manifest" in by["PMC404"]
+    assert rows[2]["pmcid"] == "PMC9" and rows[0]["xml_md5"] == "fff111"
